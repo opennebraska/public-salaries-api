@@ -13,4 +13,17 @@ export class EmployeeService {
   findAll(): Promise<Employee[]> {
     return this.employeeRepository.find();
   }
+
+  findById(id: string): Promise<Employee> {
+    return this.employeeRepository.findOne(id);
+  }
+
+  findByName(name: string): Promise<Employee[]> {
+    let queryBuilder = this.employeeRepository.createQueryBuilder('employee');
+
+    if (name) {
+      queryBuilder.where('LOWER(employee.name) LIKE LOWER(:name)', { name });
+    }
+    return queryBuilder.getMany();
+  }
 }

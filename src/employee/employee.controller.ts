@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { EmployeeService } from './employee.service';
 import { Employee } from './employee.entity';
 
@@ -9,5 +9,15 @@ export class EmployeeController {
   @Get()
   async findAll(): Promise<Employee[]> {
     return this.employeeService.findAll();
+  }
+
+  @Get('/:id')
+  async find(@Param('id') id: string): Promise<Employee> {
+    return this.employeeService.findById(id);
+  }
+
+  @Get()
+  async findByName(@Query('name') name: string): Promise<Employee[]> {
+    return this.employeeService.findByName(name);
   }
 }

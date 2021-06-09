@@ -17,6 +17,10 @@ describe('EmployeeController (e2e)', () => {
   };
   let employeeService = {
     findAll: () => [georgeWashington],
+    findById: (id: string) =>
+      [georgeWashington].filter(employee => employee.id === id)[0],
+    findByName: (name: string) =>
+      [georgeWashington].filter(employee => employee.name === name)[0],
   };
 
   beforeEach(async () => {
@@ -34,6 +38,20 @@ describe('EmployeeController (e2e)', () => {
   it('GET /employees', () => {
     return request(app.getHttpServer())
       .get('/employees')
+      .expect(200)
+      .expect([georgeWashington]);
+  });
+
+  it('GET /employees/1', () => {
+    return request(app.getHttpServer())
+      .get('/employees/1')
+      .expect(200)
+      .expect(georgeWashington);
+  });
+
+  it('GET /employees?name=George%20Washington', () => {
+    return request(app.getHttpServer())
+      .get('/employees?name=George%20Washington')
       .expect(200)
       .expect([georgeWashington]);
   });
