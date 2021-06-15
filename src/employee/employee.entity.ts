@@ -17,6 +17,9 @@ export class Employee {
   @Column()
   totalAnnualAmount: number;
 
+  @Column()
+  year: number;
+
   @Column({ type: 'date' })
   originalHireDate: string;
 }

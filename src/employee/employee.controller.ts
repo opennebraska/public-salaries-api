@@ -1,6 +1,7 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { EmployeeService } from './employee.service';
 import { Employee } from './employee.entity';
+import { EmployeeQueryDto } from './EmployeeQueryDto';
 
 @Controller('employees')
 export class EmployeeController {
@@ -17,7 +18,7 @@ export class EmployeeController {
   }
 
   @Get()
-  async findByName(@Query('name') name: string): Promise<Employee[]> {
-    return this.employeeService.findByName(name);
+  async findByName(@Query() queryDto: EmployeeQueryDto): Promise<Employee[]> {
+    return this.employeeService.findByName(queryDto);
   }
 }

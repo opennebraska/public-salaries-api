@@ -13,6 +13,7 @@ describe('EmployeeController (e2e)', () => {
     jobTitle: 'Prez',
     agency: 'Executive Branch',
     totalAnnualAmount: 25000,
+    year: 1789,
     originalHireDate: '4-30-1789',
   };
   let employeeService = {
@@ -23,7 +24,7 @@ describe('EmployeeController (e2e)', () => {
       [georgeWashington].filter(employee => employee.name === name)[0],
   };
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     })
