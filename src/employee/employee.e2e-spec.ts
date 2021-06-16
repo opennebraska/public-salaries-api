@@ -12,7 +12,7 @@ describe('EmployeeController (e2e)', () => {
     name: 'George Washington',
     jobTitle: 'Prez',
     agency: 'Executive Branch',
-    totalAnnualAmount: 25000,
+    totalAnnualAmount: '$25,000',
     year: 1789,
     originalHireDate: '4-30-1789',
   };

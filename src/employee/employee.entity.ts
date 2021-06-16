@@ -1,8 +1,8 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Employee {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: string;
 
   @Column()
@@ -15,7 +15,7 @@ export class Employee {
   agency: string;
 
   @Column()
-  totalAnnualAmount: number;
+  totalAnnualAmount: string;
 
   @Column()
   year: number;
