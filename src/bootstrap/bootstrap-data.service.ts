@@ -37,7 +37,9 @@ export class BootstrapDataService {
               agency,
               name,
               jobTitle,
-              totalAnnualAmount,
+              totalAnnualAmount: Number(
+                totalAnnualAmount.replace(/[^0-9\.-]+/g, ''),
+              ),
               originalHireDate,
               year,
             });

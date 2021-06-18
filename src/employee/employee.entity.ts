@@ -14,8 +14,8 @@ export class Employee {
   @Column()
   agency: string;
 
-  @Column()
-  totalAnnualAmount: string;
+  @Column('float')
+  totalAnnualAmount: number;
 
   @Column()
   year: number;
