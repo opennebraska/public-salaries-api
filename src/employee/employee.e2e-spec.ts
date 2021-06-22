@@ -12,7 +12,7 @@ describe('EmployeeController (e2e)', () => {
     name: 'George Washington',
     jobTitle: 'Prez',
     agency: 'Executive Branch',
-    totalAnnualAmount: '$25,000',
+    totalAnnualAmount: 25000,
     year: 1789,
     originalHireDate: '4-30-1789',
   };
@@ -35,6 +35,8 @@ describe('EmployeeController (e2e)', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
   });
+
+  afterAll(async () => app?.close());
 
   it('GET /employees', () => {
     return request(app.getHttpServer())
