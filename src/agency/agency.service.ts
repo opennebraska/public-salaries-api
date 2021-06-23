@@ -9,10 +9,6 @@ export class AgencyService {
     @InjectRepository(Agency) private agencyRepository: Repository<Agency>,
   ) {}
 
-  findAll(): Promise<Agency[]> {
-    return this.agencyRepository.find();
-  }
-
   findById(id: string): Promise<Agency> {
     return this.agencyRepository.findOne(id);
   }
