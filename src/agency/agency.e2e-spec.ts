@@ -3,33 +3,22 @@ import { Agency } from './agency.entity';
 import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../app.module';
-import { AgencyService } from './agency.service';
 
 describe('AgencyController (e2e)', () => {
   let app: INestApplication;
-  const omahaAgency: Agency = {
-    id: '1',
-    name: 'Omaha',
-    employeeCount: 3896,
-    topPay: 216864,
-    medianPay: 72320,
-    year: 2020,
-  };
-
-  let agencyService = {
-    findByName: (name: string) =>
-      [omahaAgency].filter(agency => agency.name === name),
-    findById: (id: string) =>
-      [omahaAgency].filter(agency => agency.id === id)[0],
+  const transportationAgency: Agency = {
+    id: 65,
+    name: 'Transportation - Agency 27',
+    employeeCount: 2072,
+    topPay: 160000,
+    medianPay: 44059,
+    year: 2021,
   };
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
-    })
-      .overrideProvider(AgencyService)
-      .useValue(agencyService)
-      .compile();
+    }).compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
@@ -37,17 +26,21 @@ describe('AgencyController (e2e)', () => {
 
   afterAll(async () => app?.close());
 
-  it('GET /agencies?name=Omaha', () => {
-    return request(app.getHttpServer())
-      .get('/agencies?name=Omaha')
-      .expect(200)
-      .expect([omahaAgency]);
+  it('GET /agencies?name=Transportation', async () => {
+    const { status, body } = await request(app.getHttpServer()).get(
+      '/agencies?name=Transportation',
+    );
+
+    expect({ status, body }).toEqual({
+      status: 200,
+      body: [transportationAgency],
+    });
   });
 
-  it('GET /agencies/1', () => {
+  it('GET /agencies/65', () => {
     return request(app.getHttpServer())
-      .get('/agencies/1')
+      .get('/agencies/65')
       .expect(200)
-      .expect(omahaAgency);
+      .expect(transportationAgency);
   });
 });
