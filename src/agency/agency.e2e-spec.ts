@@ -36,16 +36,16 @@ describe('AgencyController (e2e)', () => {
   afterAll(async () => app?.close());
 
   it('GET /agencies?name=Omaha', () => {
-    request(app.getHttpServer())
+    return request(app.getHttpServer())
       .get('/agencies?name=Omaha')
       .expect(200)
       .expect([omahaAgency]);
   });
 
   it('GET /agencies/1', () => {
-    request(app.getHttpServer())
+    return request(app.getHttpServer())
       .get('/agencies/1')
       .expect(200)
-      .expect([omahaAgency]);
+      .expect(omahaAgency);
   });
 });
