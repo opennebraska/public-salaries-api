@@ -9,6 +9,10 @@ export class AgencyService {
     @InjectRepository(Agency) private agencyRepository: Repository<Agency>,
   ) {}
 
+  findById(id: string): Promise<Agency> {
+    return this.agencyRepository.findOne(id);
+  }
+
   findByName(name?: string): Promise<Agency[]> {
     let queryBuilder = this.agencyRepository.createQueryBuilder('agency');
     if (name) {

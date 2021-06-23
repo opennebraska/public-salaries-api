@@ -18,7 +18,9 @@ describe('AgencyController (e2e)', () => {
 
   let agencyService = {
     findByName: (name: string) =>
-      [omahaAgency].filter(agency => agency.name === name)[0],
+      [omahaAgency].filter(agency => agency.name === name),
+    findById: (id: string) =>
+      [omahaAgency].filter(agency => agency.id === id)[0],
   };
 
   beforeAll(async () => {
@@ -36,9 +38,16 @@ describe('AgencyController (e2e)', () => {
   afterAll(async () => app?.close());
 
   it('GET /agencies?name=Omaha', () => {
-    request(app.getHttpServer())
+    return request(app.getHttpServer())
       .get('/agencies?name=Omaha')
       .expect(200)
       .expect([omahaAgency]);
+  });
+
+  it('GET /agencies/1', () => {
+    return request(app.getHttpServer())
+      .get('/agencies/1')
+      .expect(200)
+      .expect(omahaAgency);
   });
 });
