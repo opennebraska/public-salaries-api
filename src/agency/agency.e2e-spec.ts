@@ -18,7 +18,9 @@ describe('AgencyController (e2e)', () => {
 
   let agencyService = {
     findByName: (name: string) =>
-      [omahaAgency].filter(agency => agency.name === name)[0],
+      [omahaAgency].filter(agency => agency.name === name),
+    findById: (id: string) =>
+      [omahaAgency].filter(agency => agency.id === id)[0],
   };
 
   beforeAll(async () => {
