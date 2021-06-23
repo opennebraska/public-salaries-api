@@ -1,20 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Employee } from '../employee/employee.entity';
-import { Repository } from 'typeorm';
+import { getManager, Repository } from 'typeorm';
 import * as fs from 'fs';
 import { parse } from '@fast-csv/parse';
+import { Agency } from '../agency/agency.entity';
 
 @Injectable()
 export class BootstrapDataService {
   constructor(
     @InjectRepository(Employee)
     private employeeRepository: Repository<Employee>,
+    @InjectRepository(Agency)
+    private agencyRepository: Repository<Agency>,
   ) {
-    this.insertData().then(() => console.log('Finished bootstrapping data.'));
+    this.insertSalaryData().then(() =>
+      console.log('Finished bootstrapping data.'),
+    );
+    this.insertAgencyData().then(() =>
+      console.log('Finished bootstrapping agency data.'),
+    );
   }
 
-  async insertData(): Promise<void> {
+  async insertSalaryData(): Promise<void> {
     const employeeCount = await this.employeeRepository.count();
     if (employeeCount > 0) {
       console.log('No need to bootstrap');
@@ -50,6 +58,19 @@ export class BootstrapDataService {
         .on('end', (rowCount: number) =>
           console.log(`Parsed ${rowCount} rows`),
         );
+    }
+  }
+
+  async insertAgencyData(): Promise<void> {
+    const agencyCount = await this.agencyRepository.count();
+    if (agencyCount > 0) {
+      console.log('Agencies already created');
+    } else {
+      await getManager().query(
+        `INSERT INTO agency
+SELECT row_number() over (), employee.agency as name, count(employee.name) as employeeCount, max(employee."totalAnnualAmount") as topPay,
+       percentile_cont(0.5) within group ( order by employee."totalAnnualAmount" ) as medianPay, employee.year from employee group by employee.agency, employee.year;`,
+      );
     }
   }
 }
