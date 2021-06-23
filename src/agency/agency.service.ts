@@ -16,7 +16,9 @@ export class AgencyService {
   findByName(name?: string): Promise<Agency[]> {
     let queryBuilder = this.agencyRepository.createQueryBuilder('agency');
     if (name) {
-      queryBuilder.where('LOWER(agency.name) LIKE LOWER(:name)', { name });
+      queryBuilder.where('LOWER(agency.name) LIKE LOWER(:name)', {
+        name: `%${name}%`,
+      });
     }
     return queryBuilder.getMany();
   }
