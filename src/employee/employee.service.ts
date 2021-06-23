@@ -11,10 +11,6 @@ export class EmployeeService {
     private employeeRepository: Repository<Employee>,
   ) {}
 
-  findAll(): Promise<Employee[]> {
-    return this.employeeRepository.find();
-  }
-
   findById(id: string): Promise<Employee> {
     return this.employeeRepository.findOne(id);
   }
