@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { EmployeeService } from './employee.service';
-import { Employee } from './employee.entity';
 import { EmployeeQueryDto } from './EmployeeQueryDto';
+import { EmployeeResponse } from './employee.response';
 
 @Controller('employees')
 export class EmployeeController {
@@ -11,17 +11,21 @@ export class EmployeeController {
   async findTopEarners(
     @Query('agency') agency: string,
     @Query('limit') limit: number,
-  ): Promise<Employee[]> {
-    return this.employeeService.findTopEarners(agency, limit);
+  ): Promise<EmployeeResponse[]> {
+    const employees = await this.employeeService.findTopEarners(agency, limit);
+    return employees.map(employee => new EmployeeResponse(employee));
   }
 
   @Get('/:id')
-  async find(@Param('id') id: string): Promise<Employee> {
-    return this.employeeService.findById(id);
+  async find(@Param('id') id: string): Promise<EmployeeResponse> {
+    return new EmployeeResponse(await this.employeeService.findById(id));
   }
 
   @Get()
-  async findByName(@Query() queryDto: EmployeeQueryDto): Promise<Employee[]> {
-    return this.employeeService.findByName(queryDto);
+  async findByName(
+    @Query() queryDto: EmployeeQueryDto,
+  ): Promise<EmployeeResponse[]> {
+    const employees = await this.employeeService.findByName(queryDto);
+    return employees.map(employee => new EmployeeResponse(employee));
   }
 }

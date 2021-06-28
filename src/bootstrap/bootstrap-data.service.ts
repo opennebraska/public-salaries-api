@@ -14,12 +14,8 @@ export class BootstrapDataService {
     @InjectRepository(Agency)
     private agencyRepository: Repository<Agency>,
   ) {
-    this.insertSalaryData().then(() =>
-      console.log('Finished bootstrapping data.'),
-    );
-    this.insertAgencyData().then(() =>
-      console.log('Finished bootstrapping agency data.'),
-    );
+    this.insertSalaryData().then();
+    this.insertAgencyData().then();
   }
 
   async insertSalaryData(): Promise<void> {

@@ -18,12 +18,12 @@ describe('EmployeeController (e2e)', () => {
 
   afterAll(async () => app?.close());
 
-  it('GET /employees/1', async () => {
+  it('GET /employees/1 gets employee with name masked', async () => {
     const expectedEmployeeOne = {
       agency: 'Abstracters Board of Examiners - Agency 66',
       id: 1,
       jobTitle: 'Director',
-      name: 'Julie Rawlings Hoppe',
+      name: '(Name withheld)',
       originalHireDate: '2007-01-01',
       totalAnnualAmount: 15721.68,
       year: 2021,
@@ -39,12 +39,33 @@ describe('EmployeeController (e2e)', () => {
     });
   });
 
+  it('GET /employees/1 gets employee', async () => {
+    const expectedEmployeeOne = {
+      id: 7664,
+      name: 'Janine B Fromm',
+      jobTitle: 'Medical Services Director',
+      agency: 'Health & Human Services - Agency 25',
+      totalAnnualAmount: 399994.4,
+      year: 2021,
+      originalHireDate: '2019-07-22',
+    };
+
+    const { body, status } = await request(app.getHttpServer()).get(
+      '/employees/7664',
+    );
+
+    expect({ status, body }).toEqual({
+      status: 200,
+      body: expectedEmployeeOne,
+    });
+  });
+
   it('GET /employees?name=Julie%20Rawlings%20Hoppe', async () => {
     const expectedHoppeEmployee = {
       agency: 'Abstracters Board of Examiners - Agency 66',
       id: 1,
       jobTitle: 'Director',
-      name: 'Julie Rawlings Hoppe',
+      name: '(Name withheld)',
       originalHireDate: '2007-01-01',
       totalAnnualAmount: 15721.68,
       year: 2021,
