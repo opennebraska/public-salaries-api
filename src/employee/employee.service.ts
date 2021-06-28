@@ -28,4 +28,17 @@ export class EmployeeService {
     }
     return queryBuilder.getMany();
   }
+
+  findTopEarners(agency: string, numberOfEarners = 10): Promise<Employee[]> {
+    let queryBuilder = this.employeeRepository.createQueryBuilder('employee');
+    if (agency) {
+      queryBuilder.where('LOWER(employee.agency) LIKE LOWER(:agency)', {
+        agency: `%${agency}%`,
+      });
+    }
+    return queryBuilder
+      .orderBy('employee.totalAnnualAmount', 'DESC')
+      .limit(numberOfEarners)
+      .getMany();
+  }
 }

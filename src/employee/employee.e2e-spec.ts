@@ -59,4 +59,73 @@ describe('EmployeeController (e2e)', () => {
       body: [expectedHoppeEmployee],
     });
   });
+
+  it(`GET /employees/top-earners should return the 3 highest earners`, async () => {
+    const { body, status } = await request(app.getHttpServer()).get(
+      `/employees/top-earners?limit=3`,
+    );
+    const expectedEmployees = [
+      {
+        agency: 'Health & Human Services - Agency 25',
+        id: 7664,
+        jobTitle: 'Medical Services Director',
+        name: 'Janine B Fromm',
+        originalHireDate: '2019-07-22',
+        totalAnnualAmount: 399994.4,
+        year: 2021,
+      },
+      {
+        agency: 'Health & Human Services - Agency 25',
+        id: 9528,
+        jobTitle: 'Psychiatric Director',
+        name: 'Roger Donovick',
+        originalHireDate: '2014-05-19',
+        totalAnnualAmount: 350001.6,
+        year: 2021,
+      },
+      {
+        agency: 'Health & Human Services - Agency 25',
+        id: 9403,
+        jobTitle: 'Psychiatrist',
+        name: 'Ramoncito Ocampo',
+        originalHireDate: '2016-04-04',
+        totalAnnualAmount: 329576,
+        year: 2021,
+      },
+    ];
+    expect({ status, body }).toEqual({
+      status: 200,
+      body: expectedEmployees,
+    });
+  });
+
+  it(`GET /employees/top-earners should return the 2 highest earners from Transportation`, async () => {
+    const { body, status } = await request(app.getHttpServer()).get(
+      `/employees/top-earners?agency=transportation&limit=2`,
+    );
+    const expectedEmployees = [
+      {
+        agency: 'Transportation - Agency 27',
+        id: 15832,
+        jobTitle: 'Director',
+        name: 'John Selmer',
+        originalHireDate: '2021-03-15',
+        totalAnnualAmount: 159999.84,
+        year: 2021,
+      },
+      {
+        agency: 'Transportation - Agency 27',
+        id: 16318,
+        jobTitle: 'Discretionary Non-Classified',
+        name: 'Mostafa Jamshidi',
+        originalHireDate: '1984-07-11',
+        totalAnnualAmount: 155970.88,
+        year: 2021,
+      },
+    ];
+    expect({ status, body }).toEqual({
+      status: 200,
+      body: expectedEmployees,
+    });
+  });
 });
