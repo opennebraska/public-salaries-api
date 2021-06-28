@@ -3,3 +3,15 @@ GET localhost:3000/employees/1
 ###
 
 GET localhost:3000/agencies
+
+###
+
+GET localhost:3000/employees/top-earners
+
+###
+
+GET localhost:3000/employees/top-earners?agency=Health
+
+###
+
+GET localhost:3000/employees/top-earners?agency=Transportation&limit=15
