@@ -14,11 +14,10 @@ export class BootstrapDataService {
     @InjectRepository(Agency)
     private agencyRepository: Repository<Agency>,
   ) {
-    this.insertSalaryData().then();
-    this.insertAgencyData().then();
+    this.insertData().then();
   }
 
-  async insertSalaryData(): Promise<void> {
+  async insertData(): Promise<void> {
     const employeeCount = await this.employeeRepository.count();
     if (employeeCount > 0) {
       console.log('No need to bootstrap');
@@ -51,9 +50,10 @@ export class BootstrapDataService {
             console.log(error);
           }
         })
-        .on('end', (rowCount: number) =>
-          console.log(`Parsed ${rowCount} rows`),
-        );
+        .on('end', (rowCount: number) => {
+          console.log(`Parsed ${rowCount} employees`);
+          this.insertAgencyData();
+        });
     }
   }
 
