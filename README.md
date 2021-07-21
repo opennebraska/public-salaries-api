@@ -48,7 +48,7 @@ $ npx jest --testNamePattern='GET /employees/1 gets employee with name masked'
 ```
 $ PGPASSWORD=password psql --username=postgres
 postgres=# select count(*) from agency;
-     3
+    68
 postgres=# select count(*) from employee;
  17619
 ```

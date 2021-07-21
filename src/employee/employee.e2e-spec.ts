@@ -46,17 +46,28 @@ describe('EmployeeController (e2e)', () => {
 
     expect({ status, body }).toEqual({
       status: 200,
-      body: [
-        {
-          agency: 'Abstracters Board of Examiners - Agency 66',
-          id: expect.any(Number),
-          jobTitle: 'Director',
-          name: '(Name withheld)',
-          originalHireDate: '2007-01-01',
-          totalAnnualAmount: 15721.68,
-          year: 2021,
-        },
-      ],
+      body: [],
+    });
+  });
+
+  it('GET /employees?name=David%20Hunter gets employee with name listed', async () => {
+    const expectedEmployee = {
+      agency: 'Accountability & Disclosure Commission - Agency 87',
+      id: 3,
+      jobTitle: 'Accountability & Disclosure Deputy Director',
+      name: 'David Hunter',
+      originalHireDate: '2000-07-17',
+      totalAnnualAmount: 69224.48,
+      year: 2021,
+    };
+
+    const { body, status } = await request(app.getHttpServer()).get(
+      '/employees?name=David%20Hunter',
+    );
+
+    expect({ status, body }).toEqual({
+      status: 200,
+      body: [ expectedEmployee ],
     });
   });
 
