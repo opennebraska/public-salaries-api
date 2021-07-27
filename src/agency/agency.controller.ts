@@ -15,4 +15,9 @@ export class AgencyController {
   async findByName(@Query('name') name: string): Promise<Agency[]> {
     return this.agencyService.findByName(name);
   }
+
+  @Get('/stats')
+  async findStats(): Promise<Agency[]> {
+    return this.agencyService.findStats();
+  }
 }
