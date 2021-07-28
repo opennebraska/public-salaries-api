@@ -17,7 +17,7 @@ export class AgencyController {
   }
 
   @Get('/stats')
-  async findStats(): Promise<Agency[]> {
+  async findStats(): Promise<number[]> {
     return this.agencyService.findStats();
   }
 }

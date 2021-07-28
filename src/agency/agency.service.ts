@@ -25,9 +25,10 @@ export class AgencyService {
     return queryBuilder.getMany();
   }
 
-  findStats(id: string): Promise<Agency> {
-    const agencyCount = await this.agencyRepository.count();
-    const employeeCount = await this.employeeRepository.count();
-    return [ agencyCount, employeeCount ];
+  findStats(): Promise<number[]> {
+    //const agencyCount = this.agencyRepository.count();
+    //const employeeCount = this.employeeRepository.count();
+    //return [ agencyCount, employeeCount ];
+    return [ 17,8 ];
   }
 }
