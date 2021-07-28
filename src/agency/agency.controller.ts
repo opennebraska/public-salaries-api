@@ -6,6 +6,11 @@ import { Agency } from './agency.entity';
 export class AgencyController {
   constructor(private readonly agencyService: AgencyService) {}
 
+  @Get('/stats')
+  async findStats(): Promise<number[]> {
+    return this.agencyService.findStats();
+  }
+
   @Get('/:id')
   async find(@Param('id') id: string): Promise<Agency> {
     return this.agencyService.findById(id);
@@ -14,10 +19,5 @@ export class AgencyController {
   @Get()
   async findByName(@Query('name') name: string): Promise<Agency[]> {
     return this.agencyService.findByName(name);
-  }
-
-  @Get('/stats')
-  async findStats(): Promise<number[]> {
-    return this.agencyService.findStats();
   }
 }

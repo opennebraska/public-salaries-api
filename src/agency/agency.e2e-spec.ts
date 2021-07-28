@@ -48,6 +48,6 @@ describe('AgencyController (e2e)', () => {
     return request(app.getHttpServer())
       .get('/agencies/stats')
       .expect(200)
-      .expect(transportationAgency);
+      .expect([68, 17616]);
   });
 });
