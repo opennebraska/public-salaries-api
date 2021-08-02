@@ -6,7 +6,11 @@ GET localhost:3000/employees/7664
 
 ###
 
-GET localhost:3000/agencies
+GET localhost:3000/agencies/66
+
+###
+
+GET localhost:3000/agencies/1
 
 ###
 
@@ -19,3 +23,7 @@ GET localhost:3000/employees/top-earners?agency=Health
 ###
 
 GET localhost:3000/employees/top-earners?agency=Transportation&limit=15
+
+###
+
+GET localhost:3000/employees/top-earners?agency=Patrol
