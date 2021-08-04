@@ -43,4 +43,11 @@ describe('AgencyController (e2e)', () => {
       .expect(200)
       .expect(transportationAgency);
   });
+
+  it('GET /agencies/stats', () => {
+    return request(app.getHttpServer())
+      .get('/agencies/stats')
+      .expect(200)
+      .expect([68, 17616]);
+  });
 });
