@@ -18,5 +18,8 @@ export class Agency {
   medianPay: number;
 
   @Column()
+  totalPay: number;
+
+  @Column()
   year: number;
 }

@@ -65,7 +65,7 @@ export class BootstrapDataService {
       await getManager().query(
         `INSERT INTO agency
 SELECT row_number() over (), employee.agency as name, count(employee.name) as employeeCount, max(employee."totalAnnualAmount") as topPay,
-       percentile_cont(0.5) within group ( order by employee."totalAnnualAmount" ) as medianPay, employee.year from employee group by employee.agency, employee.year;`,
+       percentile_cont(0.5) within group ( order by employee."totalAnnualAmount" ) as medianPay, sum(employee."totalAnnualAmount") as totalPay, employee.year from employee group by employee.agency, employee.year;`,
       );
     }
   }
