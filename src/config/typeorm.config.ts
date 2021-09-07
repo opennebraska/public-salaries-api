@@ -1,5 +1,18 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
+const TYPEORMEXTRA =
+  process.env.NODE_ENV === 'production'
+    ? {
+        extra: {
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        },
+      }
+    : null;
+
+console.log(`TYPEORMEXTRA: ${JSON.stringify(TYPEORMEXTRA)}`);
+
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
   host: process.env.DATABASE_HOST || 'localhost',
@@ -9,4 +22,5 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   database: process.env.DATABASE_NAME || 'postgres',
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
   synchronize: true,
+  ...TYPEORMEXTRA,
 };
