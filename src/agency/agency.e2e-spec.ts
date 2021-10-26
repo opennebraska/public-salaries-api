@@ -12,6 +12,7 @@ describe('AgencyController (e2e)', () => {
     employeeCount: 2072,
     topPay: 160000,
     medianPay: 44059,
+    totalPay: 102551793,
     year: 2021,
   };
 
@@ -48,6 +49,6 @@ describe('AgencyController (e2e)', () => {
     return request(app.getHttpServer())
       .get('/agencies/stats')
       .expect(200)
-      .expect([68, 17616]);
+      .expect([68, 17611]);
   });
 });

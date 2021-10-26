@@ -19,10 +19,9 @@ export class EmployeeService {
     let queryBuilder = this.employeeRepository.createQueryBuilder('employee');
     const { name, agency } = queryDto;
     if (name) {
-      queryBuilder.where(
-        'LOWER(employee.name) LIKE LOWER(:name) AND employee.totalAnnualAmount > 50000',
-        { name: `%${name}%` },
-      );
+      queryBuilder.where('LOWER(employee.name) LIKE LOWER(:name)', {
+        name: `%${name}%`,
+      });
     }
     if (agency) {
       queryBuilder.where('LOWER(employee.agency) LIKE LOWER(:agency)', {

@@ -18,42 +18,10 @@ describe('EmployeeController (e2e)', () => {
 
   afterAll(async () => app?.close());
 
-  it('GET /employees/1 gets employee with name masked', async () => {
-    const expectedEmployeeOne = {
-      agency: 'Abstracters Board of Examiners - Agency 66',
-      id: 1,
-      jobTitle: 'Director',
-      name: '(Name withheld)',
-      originalHireDate: '2007-01-01',
-      totalAnnualAmount: 15721.68,
-      year: 2021,
-    };
-
-    const { body, status } = await request(app.getHttpServer()).get(
-      '/employees/1',
-    );
-
-    expect({ status, body }).toEqual({
-      status: 200,
-      body: expectedEmployeeOne,
-    });
-  });
-
-  it('GET /employees?name=Julie%20Rawlings%20Hoppe', async () => {
-    const { body, status } = await request(app.getHttpServer()).get(
-      '/employees?name=Julie%20Rawlings%20Hoppe',
-    );
-
-    expect({ status, body }).toEqual({
-      status: 200,
-      body: [],
-    });
-  });
-
   it('GET /employees?name=David%20Hunter gets employee with name listed', async () => {
     const expectedEmployee = {
       agency: 'Accountability & Disclosure Commission - Agency 87',
-      id: 3,
+      id: 4,
       jobTitle: 'Accountability & Disclosure Deputy Director',
       name: 'David Hunter',
       originalHireDate: '2000-07-17',
@@ -67,7 +35,7 @@ describe('EmployeeController (e2e)', () => {
 
     expect({ status, body }).toEqual({
       status: 200,
-      body: [ expectedEmployee ],
+      body: [expectedEmployee],
     });
   });
 
@@ -75,7 +43,7 @@ describe('EmployeeController (e2e)', () => {
     const { body, status } = await request(app.getHttpServer()).get(
       `/employees/top-earners?limit=3`,
     );
-    const expectedEmployees = expect({ status, body }).toEqual({
+    expect({ status, body }).toEqual({
       status: 200,
       body: [
         {

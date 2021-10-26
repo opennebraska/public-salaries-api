@@ -1,29 +1,29 @@
-GET localhost:3000/employees/1
+GET {{host}}/employees/1
 
 ###
 
-GET localhost:3000/employees/7664
+GET {{host}}/employees/7664
 
 ###
 
-GET localhost:3000/agencies/66
+GET {{host}}/agencies/66
 
 ###
 
-GET localhost:3000/agencies/1
+GET {{host}}/agencies/1
 
 ###
 
-GET localhost:3000/employees/top-earners
+GET {{host}}/employees/top-earners
 
 ###
 
-GET localhost:3000/employees/top-earners?agency=Health
+GET {{host}}/employees/top-earners?agency=Health
 
 ###
 
-GET localhost:3000/employees/top-earners?agency=Transportation&limit=15
+GET {{host}}/employees/top-earners?agency=Transportation&limit=0
 
 ###
 
-GET localhost:3000/employees/top-earners?agency=Patrol
+GET {{host}}/employees/top-earners?agency=Patrol

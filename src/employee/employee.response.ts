@@ -10,9 +10,6 @@ export class EmployeeResponse {
   originalHireDate: string;
 
   constructor(employee: Employee) {
-    if (employee.totalAnnualAmount < 50_000) {
-      employee.name = '(Name withheld)';
-    }
     Object.assign(this, employee);
   }
 }
