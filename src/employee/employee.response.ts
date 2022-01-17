@@ -5,6 +5,8 @@ export class EmployeeResponse {
   name: string;
   jobTitle: string;
   agency: string;
+  salary: string;
+  overtime: string;
   totalAnnualAmount: string;
   year: number;
   originalHireDate: string;

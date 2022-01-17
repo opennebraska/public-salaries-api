@@ -12,11 +12,21 @@ export class Agency {
   employeeCount: number;
 
   @Column()
+  topSalary: number;
+
+  @Column()
+  topOvertime: number;
+
+  @Column()
   topPay: number;
 
   @Column()
   medianPay: number;
 
+  @Column()
+  totalSalary: number;
+  @Column()
+  totalOvertime: number;
   @Column()
   totalPay: number;
 

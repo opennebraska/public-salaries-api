@@ -15,6 +15,12 @@ export class Employee {
   agency: string;
 
   @Column('float')
+  salary: number;
+
+  @Column('float')
+  overtime: number;
+
+  @Column('float')
   totalAnnualAmount: number;
 
   @Column()

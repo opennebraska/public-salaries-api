@@ -9,10 +9,14 @@ describe('AgencyController (e2e)', () => {
   const transportationAgency: Agency = {
     id: 65,
     name: 'Transportation - Agency 27',
-    employeeCount: 2072,
+    employeeCount: 2464,
+    topOvertime: 30385,
+    topSalary: 160000,
     topPay: 160000,
-    medianPay: 44059,
-    totalPay: 102551793,
+    medianPay: 44571,
+    totalSalary: 118213331,
+    totalOvertime: 5030164,
+    totalPay: 123243495,
     year: 2021,
   };
 
@@ -49,6 +53,6 @@ describe('AgencyController (e2e)', () => {
     return request(app.getHttpServer())
       .get('/agencies/stats')
       .expect(200)
-      .expect([68, 17611]);
+      .expect([68, 22334]);
   });
 });

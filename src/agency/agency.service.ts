@@ -26,11 +26,11 @@ export class AgencyService {
   async findStats(): Promise<number[]> {
     let queryBuilder = this.agencyRepository.createQueryBuilder('agency');
     const agencies = await queryBuilder.getMany();
-    var totalEmployees = 0;
+    let totalEmployees = 0;
     let agencyCount = agencies.length;
     agencies.forEach(agency => {
       totalEmployees += agency.employeeCount;
-    })
-    return [ agencyCount, totalEmployees ];
+    });
+    return [agencyCount, totalEmployees];
   }
 }
