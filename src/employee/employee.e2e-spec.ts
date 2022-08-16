@@ -41,6 +41,50 @@ describe('EmployeeController (e2e)', () => {
     });
   });
 
+  it(`GET /employees?name=Psychiatrist should return employees with this job title`, async () => {
+    const { body, status } = await request(app.getHttpServer()).get(
+        `/employees?name=Psychiatrist`,
+    );
+    expect({ status, body }).toEqual({
+      status: 200,
+      body: [
+        {
+          "agency": "Health & Human Services - Agency 25",
+          "id": 4710,
+          "jobTitle": "Psychiatrist",
+          "name": "Amy Barker",
+          "originalHireDate": "2020-04-01",
+          "overtime": 0,
+          "salary": 322167.04,
+          "totalAnnualAmount": 322167.04,
+          "year": 2021
+        },
+        {
+          "agency": "Health & Human Services - Agency 25",
+          "id": 6324,
+          "jobTitle": "Psychiatrist",
+          "name": "Klaus Hartmann",
+          "originalHireDate": "1975-10-01",
+          "overtime": 0,
+          "salary": 306835.36,
+          "totalAnnualAmount": 306835.36,
+          "year": 2021
+        },
+        {
+          "agency": "Health & Human Services - Agency 25",
+          "id": 7050,
+          "jobTitle": "Psychiatrist",
+          "name": "Ramoncito Ocampo",
+          "originalHireDate": "2016-04-04",
+          "overtime": 0,
+          "salary": 329576,
+          "totalAnnualAmount": 329576,
+          "year": 2021
+        },
+      ],
+    });
+  });
+
   it(`GET /employees/top-earners should return the 3 highest earners`, async () => {
     const { body, status } = await request(app.getHttpServer()).get(
       `/employees/top-earners?limit=3`,

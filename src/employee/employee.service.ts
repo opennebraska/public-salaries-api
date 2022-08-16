@@ -16,12 +16,13 @@ export class EmployeeService {
   }
 
   findByName(queryDto: EmployeeQueryDto): Promise<Employee[]> {
-    let queryBuilder = this.employeeRepository.createQueryBuilder('employee');
+    const queryBuilder = this.employeeRepository.createQueryBuilder('employee');
     const { name, agency } = queryDto;
     if (name) {
       queryBuilder.where('LOWER(employee.name) LIKE LOWER(:name)', {
         name: `%${name}%`,
-      });
+      })
+          .orWhere('LOWER(employee.jobTitle) LIKE LOWER(:name)');
     }
     if (agency) {
       queryBuilder.where('LOWER(employee.agency) LIKE LOWER(:agency)', {
@@ -32,7 +33,7 @@ export class EmployeeService {
   }
 
   findTopEarners(agency: string, numberOfEarners = 10): Promise<Employee[]> {
-    let queryBuilder = this.employeeRepository.createQueryBuilder('employee');
+    const queryBuilder = this.employeeRepository.createQueryBuilder('employee');
     if (agency) {
       queryBuilder.where('LOWER(employee.agency) LIKE LOWER(:agency)', {
         agency: `%${agency}%`,

@@ -27,3 +27,8 @@ GET {{host}}/employees/top-earners?agency=Transportation&limit=0
 ###
 
 GET {{host}}/employees/top-earners?agency=Patrol
+
+
+###
+
+GET {{host}}/employees?name=Director
