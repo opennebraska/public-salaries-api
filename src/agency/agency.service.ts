@@ -14,7 +14,7 @@ export class AgencyService {
   }
 
   findByName(name?: string): Promise<Agency[]> {
-    let queryBuilder = this.agencyRepository.createQueryBuilder('agency');
+    const queryBuilder = this.agencyRepository.createQueryBuilder('agency');
     if (name) {
       queryBuilder.where('LOWER(agency.name) LIKE LOWER(:name)', {
         name: `%${name}%`,
@@ -24,10 +24,10 @@ export class AgencyService {
   }
 
   async findStats(): Promise<number[]> {
-    let queryBuilder = this.agencyRepository.createQueryBuilder('agency');
+    const queryBuilder = this.agencyRepository.createQueryBuilder('agency');
     const agencies = await queryBuilder.getMany();
     let totalEmployees = 0;
-    let agencyCount = agencies.length;
+    const agencyCount = agencies.length;
     agencies.forEach(agency => {
       totalEmployees += agency.employeeCount;
     });

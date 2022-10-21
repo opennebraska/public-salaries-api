@@ -23,27 +23,32 @@ export class BootstrapDataService {
       console.log('No need to bootstrap');
     } else {
       console.log('Do the bootstrapping magic!');
-      fs.createReadStream('./public-salaries-ot-2021.csv')
+      fs.createReadStream('./public-salaries-2022.csv')
         .pipe(parse({ headers: true }))
         .on('error', error => console.error(error))
         .on('data', async row => {
           try {
             let {
-              Agency: agency,
+              Organization: organization,
               Employee: name,
-              'Job Title': jobTitle,
-              'Original Hire Date': originalHireDate,
               'Annual Base Salary': salary,
               Overtime: overtime,
-              year = 2021,
+            } = row;
+            const {
+              Agency: agency,
+              'Job Title': jobTitle,
+              'Original Hire Date': originalHireDate,
+              year = 2022,
             } = row;
             name = name.trim();
             salary = Number(salary.replace(/[^0-9\.-]+/g, ''));
             overtime = Number(overtime.replace(/[^0-9\.-]+/g, '')) || 0;
             // Currently zeroing out negative overtime
             overtime = Math.max(overtime, 0);
+            organization = organization === "State Employees" ? "State of Nebraska": organization
             return await this.employeeRepository.save({
               agency,
+              organization,
               name,
               jobTitle,
               salary,
@@ -70,9 +75,9 @@ export class BootstrapDataService {
     } else {
       await getManager().query(
         `INSERT INTO agency
-SELECT row_number() over (), employee.agency as name, count(employee.name) as employeeCount, max(employee.salary) as topSalary, 
-       max(employee.overtime) as topOvertime, max(employee."totalAnnualAmount") as topPay, percentile_cont(0.5) within group ( order by employee."totalAnnualAmount" ) as medianPay, 
-       sum(employee.salary) as totalSalary, sum(employee.overtime) as totalOvertime, sum(employee."totalAnnualAmount") as totalPay, employee.year from employee group by employee.agency, employee.year;`,
+SELECT row_number() over (), employee.agency as name, employee.organization as organization, count(employee.name) as employeeCount, max(employee.salary) as topSalary,
+       max(employee.overtime) as topOvertime, max(employee."totalAnnualAmount") as topPay, percentile_cont(0.5) within group ( order by employee."totalAnnualAmount" ) as medianPay,
+       sum(employee.salary) as totalSalary, sum(employee.overtime) as totalOvertime, sum(employee."totalAnnualAmount") as totalPay, employee.year from employee group by employee.agency, employee.organization, employee.year;`,
       );
     }
   }

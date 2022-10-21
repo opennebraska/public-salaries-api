@@ -9,6 +9,9 @@ export class Agency {
   name: string;
 
   @Column()
+  organization: string;
+
+  @Column()
   employeeCount: number;
 
   @Column()

@@ -14,6 +14,9 @@ export class Employee {
   @Column()
   agency: string;
 
+  @Column()
+  organization: string;
+
   @Column('float')
   salary: number;
 
