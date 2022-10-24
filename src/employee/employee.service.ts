@@ -22,7 +22,8 @@ export class EmployeeService {
       queryBuilder.where('LOWER(employee.name) LIKE LOWER(:name)', {
         name: `%${name}%`,
       })
-          .orWhere('LOWER(employee.jobTitle) LIKE LOWER(:name)');
+          .orWhere('LOWER(employee.jobTitle) LIKE LOWER(:name)')
+          .orWhere('LOWER(employee.organization) LIKE LOWER(:name)');
     }
     if (agency) {
       queryBuilder.where('LOWER(employee.agency) LIKE LOWER(:agency)', {

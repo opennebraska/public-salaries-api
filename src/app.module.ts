@@ -5,6 +5,7 @@ import { typeOrmConfig } from './config/typeorm.config';
 import { EmployeeModule } from './employee/employee.module';
 import { BootstrapDataModule } from './bootstrap/bootstrap-data.module';
 import { AgencyModule } from './agency/agency.module';
+import {NoteModule} from "./note/note.module";
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { AgencyModule } from './agency/agency.module';
     AgencyModule,
     BootstrapDataModule,
     EmployeeModule,
+    NoteModule,
   ],
 })
 export class AppModule {}

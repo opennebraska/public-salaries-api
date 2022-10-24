@@ -18,7 +18,8 @@ export class AgencyService {
     if (name) {
       queryBuilder.where('LOWER(agency.name) LIKE LOWER(:name)', {
         name: `%${name}%`,
-      });
+      })
+        .orWhere('LOWER(agency.organization) LIKE LOWER(:name)');
     }
     return queryBuilder.getMany();
   }
