@@ -13,4 +13,8 @@ export class NoteService {
   findByOrganization(organization: string): Promise<Note[]> {
     return this.noteRepository.find({ where: { organization}})
   }
+
+  findAll(): Promise<Note[]> {
+    return this.noteRepository.find()
+  }
 }

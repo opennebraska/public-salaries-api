@@ -37,15 +37,16 @@ export class BootstrapDataService {
               'Annual Base Salary': salary,
               Overtime: overtime,
               Agency: agency,
+              'Original Hire Date': originalHireDate,
             } = row;
             const {
               'Job Title': jobTitle,
-              'Original Hire Date': originalHireDate,
               year = 2022,
             } = row;
             if(organization === 'Lancaster County') {
               agency = agency.split('.')[1]
             }
+            originalHireDate = originalHireDate === 'NA' ? '01-01-2022' : originalHireDate;
             name = name.trim();
             salary = Number(salary.replace(/[^0-9\.-]+/g, ''));
             overtime = Number(overtime.replace(/[^0-9\.-]+/g, '')) || 0;
@@ -95,7 +96,7 @@ SELECT row_number() over (), employee.agency as name, employee.organization as o
       console.log('Notes already created');
     } else {
       const notes = [
-        { organization: "Lancaster County", note: "Lancaster County full-time employees' base salary is calculated based on the information provided by the county clerk that full-time employees work 2080 hours per year."}
+        { organization: "Lancaster County", note: "Lancaster County full-time employees' base salary is calculated based on 2080 hours per year."}
       ]
       await this.noteRepository.save(notes)
     }

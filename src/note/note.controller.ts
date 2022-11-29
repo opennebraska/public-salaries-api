@@ -10,4 +10,9 @@ export class NoteController {
   async find(@Param('organization') organization: string): Promise<Note[]> {
     return this.noteService.findByOrganization(organization);
   }
+
+  @Get()
+  async findAll(): Promise<Note[]> {
+    return this.noteService.findAll();
+  }
 }
